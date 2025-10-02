@@ -9,7 +9,7 @@ Sistem ini mampu mendeteksi **asap** maupun **panas** menggunakan sensor Hooseki
 - **Deteksi panas** menggunakan Heat Detector Hooseki HS-02.  
 - **Deteksi asap** menggunakan Smoke Detector Hooseki HS-WT30L.  
 - **MCFA Panel 20 Zone** sebagai pusat kendali alarm.  
-- **PLC Outseal Mega V3** untuk mengontrol MCFA sekaligus mengintegrasikan data ke web.  
+- **PLC Outseal Mega V3** untuk meneruskan data dari MCFA sekaligus mengintegrasikan data ke web.  
 - **Pemantauan dan notifikasi berbasis web** melalui komunikasi Modbus TCP.  
 - **Alarm bell** dan **relay eksternal** sebagai perangkat peringatan darurat.  
 - **Push button reset** untuk mengembalikan sistem secara manual.  
@@ -65,4 +65,5 @@ Sistem ini mampu mendeteksi **asap** maupun **panas** menggunakan sensor Hooseki
 6. **Alarm bell berbunyi**, dan dapat dikontrol (Sounding, Mute, Reset) melalui web.  
 
 ---
+
 

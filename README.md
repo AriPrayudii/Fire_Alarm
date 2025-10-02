@@ -30,11 +30,29 @@ Sistem ini mampu mendeteksi **asap** maupun **panas** menggunakan sensor Hooseki
 
 ---
 
-## 📊 Skematik dan Desain
-- Diagram blok sistem deteksi kebakaran  
-- Skematik integrasi PLC dengan MCFA  
-- Jaringan komunikasi Modbus RTU/TCP  
-- Desain antarmuka pemantauan web  
+## 📊 Perancangan dan Desain
+- Perancangan sistem deteksi kebakaran
+          
+  <img src="images/Diagram sistem.jpg" alt="diagram" width="280">
+  
+  <img src="images/Instalasi sistem.jpg" alt="intalasi" width="500">  
+
+  <img src="images/MCFA.jpg" alt="mcfa" width="280">
+           
+  <img src="images/PLC to MCFA.jpg" alt="PLC" width="495">
+
+- Desain antarmuka pemantauan web
+        
+  <img src="images/Login.jpg" alt="Login" width="400">
+
+  <img src="images/UI_1.jpg" alt="UI_1" width="180">
+
+- Desain notifikasi
+  
+  <img src="images/Ui_2.jpg" alt="ui2" width="250">
+
+  <img src="images/Ui_3.jpg" alt="ui3" width="240">
+
 
 ---
 
@@ -48,7 +66,3 @@ Sistem ini mampu mendeteksi **asap** maupun **panas** menggunakan sensor Hooseki
 
 ---
 
-## 📷 Dokumentasi
-(Tambahkan foto panel MCFA, PLC, sensor, relay, serta tampilan web monitoring di sini)
-
----

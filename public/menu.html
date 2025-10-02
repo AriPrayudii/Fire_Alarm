@@ -1,0 +1,454 @@
+<!-- FILE: menu.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fire Alarm</title>
+
+    <!-- CSS & Font -->
+    <link rel="stylesheet" href="assets/tailwind.css" />
+    <link rel="stylesheet" href="assets/fontawesome/css/all.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" />
+    <link rel="manifest" href="manifest.json"/>
+  </head>
+
+  <body class="max-w-screen-md mx-auto text-center flex flex-col items-center justify-center min-h-screen !bg-[#EEEEEE]">
+    <div class="mx-2 w-full">
+      <!-- LOGO, NAMA UNIVERSITAS, & BELL + PROFILE -->
+      <div class="flex items-center justify-between w-full mb-4">
+        <!-- Kiri: Logo dan Nama Universitas -->
+        <div class="flex items-center gap-4">
+          <img src="assets/widyadharmalogo.png" alt="Logo" width="125" height="125" />
+          <div class="font-[600] text-xl font-[Poppins] bayangan-sabi text-ungu">
+            <div>UNIVERSITAS</div>
+            <div>WIDYA DHARMA</div>
+            <div>PONTIANAK</div>
+          </div>
+        </div>
+
+        <!-- Kanan: Bell Notification & Profile -->
+        <div class="flex items-center gap-4 relative">
+          <!-- Bell -->
+          <div class="relative">
+          <!-- Tombol lonceng -->
+          <button id="bell-button" class="relative focus:outline-none">
+          <i class="fas fa-bell text-purple-800 text-3xl"></i>
+          <span id="notification-count" class="hidden absolute -top-2 -right-2 bg-red-500 text-black text-xs font-bold px-2 py-0.5 rounded-full min-w-[1.5rem] text-center"></span>
+          </button>
+
+        <!-- Popup Notifikasi -->
+        <div id="notification-popup" class="hidden absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-lg z-50 p-4 text-left text-sm text-gray-700">
+        Tidak ada notifikasi baru.
+        </div>
+      </div>
+
+          <!-- Profile with Dropdown -->
+          <div class="relative">
+            <button id="profile-button" class="focus:outline-none">
+              <img src="assets/fotouser.jpg" alt="Profile" class="w-12 h-12 rounded-full border-2 border-white shadow" />
+            </button>
+            <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg z-50">
+              <a href="#" onclick="logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JUDUL DAN IDENTITAS -->
+      <div class="text-left font-[Poppins] animate-fade-in-up mb-6">
+        <div class="text-lg font-semibold italic text-[#65195E] bayangan-sabi">
+          WIDYA DHARMA - FIRE ALARM MONITORING SYSTEM
+        </div>
+        <div>
+          <span id="greeting" class="bayangan-sabi text-[#373331]"></span>
+          <span class="bayangan-sabi font-bold text-[#373331]">SHELLY INDAH PRATIWI</span>
+        </div>
+      </div>
+
+            <!-- ZONE PANEL -->
+      <div class="kotak-blur rounded-2xl shadow p-4 bg-white">
+        <h3 class="text-center text-2xl font-bold text-ungu mb-5">
+          SYSTEM VIEW FOR ZONE STATUS
+        </h3>
+
+<!-- ALARM ZONA -->
+<div class="kotak-blur rounded-2xl shadow p-4 mb-8 bg-gray-100 max-w-7xl mx-auto">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <!-- ZONA 1 & 2 (Lt 1 & 2 digabung jadi 1 zone) -->
+    <div class="text-center">
+      <div class="text-base font-semibold text-gray-800 mb-2">ALARM ZONA 1</div>
+      <div id="indicatorout-1" class="indicator"></div>
+    </div>
+    <!-- ZONA 3 -->
+    <div class="text-center">
+      <div class="text-base font-semibold text-gray-800 mb-2">ALARM ZONA 3</div>
+      <div id="indicatorout-2" class="indicator"></div>
+    </div>
+    <!-- ZONA 4 -->
+    <div class="text-center">
+      <div class="text-base font-semibold text-gray-800 mb-2">ALARM ZONA 4</div>
+      <div id="indicatorout-3" class="indicator"></div>
+    </div>
+    <!-- ZONA 5 -->
+    <div class="text-center">
+      <div class="text-base font-semibold text-gray-800 mb-2">ALARM ZONA 5</div>
+      <div id="indicatorout-4" class="indicator"></div>
+    </div>
+    <!-- ZONA 6 -->
+    <div class="text-center">
+      <div class="text-base font-semibold text-gray-800 mb-2">ALARM ZONA 6</div>
+      <div id="indicatorout-5" class="indicator"></div>
+    </div>
+    <!-- ZONA 7 -->
+    <div class="text-center">
+      <div class="text-base font-semibold text-gray-800 mb-2">ALARM ZONA 7</div>
+      <div id="indicatorout-6" class="indicator"></div>
+    </div>
+  </div>
+  <!-- RESET BUTTON -->
+  <div class="flex flex-wrap gap-2 justify-center mt-5">
+    <button
+      id="btn-reset-1"
+      class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-10 rounded-full"
+    >
+      RESET ALL ZONE
+    </button>
+  </div>
+</div>
+
+
+
+      <!-- CONTAINER UTAMA GRID ZONA 1-4 -->
+      <div class="kotak-blur rounded-2xl shadow p-4 bg-gray-100">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- BLOK ALARM ZONA 1 -->
+          <div class="bg-white p-4 rounded-2xl shadow">
+            <div class="text-base font-semibold text-gray-800 mb-2">ZONA 1</div>
+            <div class="flex flex-col items-center mb-4">
+              <div id="indicator-1" class="indicator"></div>
+            </div>
+            <div class="flex flex-wrap gap-2 justify-center">
+              <button
+                id="btn-sounding-1"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded-full"
+              >
+                SOUNDING
+              </button>
+              <button
+                id="btn-mute-1"
+                class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-8 rounded-full"
+              >
+                MUTE
+              </button>
+
+            </div>
+          </div>
+
+          <!-- BLOK ALARM ZONA 3 -->
+          <div class="bg-white p-4 rounded-2xl shadow">
+            <div class="text-base font-semibold text-gray-800 mb-2">ZONA 3</div>
+            <div class="flex flex-col items-center mb-4">
+              <div id="indicator-2" class="indicator"></div>
+            </div>
+            <div class="flex flex-wrap gap-2 justify-center">
+              <button
+                id="btn-sounding-2"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded-full"
+              >
+                SOUNDING
+              </button>
+              <button
+                id="btn-mute-2"
+                class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-8 rounded-full"
+              >
+                MUTE
+              </button>
+
+            </div>
+          </div>
+
+          <!-- BLOK ALARM ZONA 4 -->
+          <div class="bg-white p-4 rounded-2xl shadow">
+            <div class="text-base font-semibold text-gray-800 mb-2">ZONA 4</div>
+            <div class="flex flex-col items-center mb-4">
+              <div id="indicator-3" class="indicator"></div>
+            </div>
+            <div class="flex flex-wrap gap-2 justify-center">
+              <button
+                id="btn-sounding-3"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded-full"
+              >
+                SOUNDING
+              </button>
+              <button
+                id="btn-mute-3"
+                class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-8 rounded-full"
+              >
+                MUTE
+              </button>
+
+            </div>
+          </div>
+
+          <!-- BLOK ALARM ZONA 5 -->
+          <div class="bg-white p-4 rounded-2xl shadow">
+            <div class="text-base font-semibold text-gray-800 mb-2">ZONA 5</div>
+            <div class="flex flex-col items-center mb-4">
+              <div id="indicator-4" class="indicator"></div>
+            </div>
+            <div class="flex flex-wrap gap-2 justify-center">
+              <button
+                id="btn-sounding-4"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded-full"
+              >
+                SOUNDING
+              </button>
+              <button
+                id="btn-mute-4"
+                class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-8 rounded-full"
+              >
+                MUTE
+              </button>
+            </div>
+          </div>
+    <!-- ZONA 6 -->
+    <div class="bg-white p-4 rounded-2xl shadow">
+      <div class="text-base font-semibold text-gray-800 mb-2">ZONA 6</div>
+      <div class="flex flex-col items-center mb-4">
+        <div id="indicator-5" class="indicator"></div>
+      </div>
+      <div class="flex flex-wrap gap-2 justify-center">
+        <button id="btn-sounding-5" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded-full">SOUNDING</button>
+        <button id="btn-mute-5" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-8 rounded-full">MUTE</button>
+      </div>
+    </div>
+
+    <!-- ZONA 7 -->
+    <div class="bg-white p-4 rounded-2xl shadow">
+      <div class="text-base font-semibold text-gray-800 mb-2">ZONA 7</div>
+      <div class="flex flex-col items-center mb-4">
+        <div id="indicator-6" class="indicator"></div>
+      </div>
+      <div class="flex flex-wrap gap-2 justify-center">
+        <button id="btn-sounding-6" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded-full">SOUNDING</button>
+        <button id="btn-mute-6" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-8 rounded-full">MUTE</button>
+      </div>
+    </div>
+
+
+    <!-- SCRIPT LOGIKA UTAMA -->
+<script>
+  // Indikator status input & output
+  // true = OFF (abu), false = ON (merah)
+  const indicators = Array(7).fill(true); // ZONA 1-4 (indicators[1..4])
+  const alarmstatus = Array(7).fill(false);       // ALARM ZONA 1-4 (alarmstatus[5..8])
+
+  // Fungsi update indikator UI input (zona 1-4)
+  function updateIndicatorUIinput(index) {
+    const indicator = document.getElementById(`indicator-${index}`);
+    if (!indicator) return;
+    if (indicators[index]) {
+      indicator.classList.remove("on");
+    } else {
+      indicator.classList.add("on");
+    }
+  }
+
+  // Fungsi update indikator UI output (alarm 1-4)
+  function updateIndicatorUIoutput(index) {
+    const indicator = document.getElementById(`indicatorout-${index}`);
+    if (!indicator) return;
+    if (alarmstatus[index]) {
+      indicator.classList.add("on");
+    } else {
+      indicator.classList.remove("on");
+    }
+  }
+
+  // Update indikator zona (input)
+  function updateIndicatorsinput() {
+    for (let i = 1; i <= 6; i++) {
+      updateIndicatorUIinput(i);
+    }
+  }
+
+  // Update indikator alarm (output)
+  function updateIndicatorsoutput() {
+    for (let i = 1; i <= 6; i++) {
+      updateIndicatorUIoutput(i);
+    }
+  }
+
+  // Ambil data input dari server
+  async function updateIndicators() {
+    try {
+      const res = await fetch("/api/input", { cache: "no-store" });
+      const json = await res.json();
+      if (json.input?.length >= 6) {
+        for (let i = 1; i <= 6; i++) {
+          indicators[i] = json.input[i - 1];
+        }
+        updateIndicatorsinput();
+      }
+    } catch (e) {
+      console.error("Gagal update indikator input:", e);
+    }
+  }
+
+async function updateAlarmIndicators() {
+  try {
+    const response = await fetch("/api/output", { cache: "no-store" });
+    const data = await response.json();
+
+    const output = data.output;
+
+    // Cek apakah output memiliki minimal 12 elemen
+    if (Array.isArray(output) && output.length >= 16) {
+      for (let i = 1; i <= 6; i++) {
+        alarmstatus[i] = output[i - 1];
+      }
+      updateIndicatorsoutput();
+    } else {
+      console.warn("Data output tidak valid atau kurang dari 12 elemen:", output);
+    }
+  } catch (error) {
+    console.error("Gagal update indikator alarm output:", error);
+  }
+}
+
+  // Setup tombol
+  function setupButtonReset(buttonId, index) {
+    const btn = document.getElementById(buttonId);
+    if (!btn) return;
+
+    btn.onclick = async () => {
+      btn.classList.add("opacity-50", "pointer-events-none");
+      try {
+        await fetch("/api/button", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ index: index, state: true }),
+        });
+        setTimeout(async () => {
+          await fetch("/api/button", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ index: index, state: false }),
+          });
+          btn.classList.remove("opacity-50", "pointer-events-none");
+        }, 500);
+      } catch (err) {
+        alert("Gagal kirim perintah.");
+        btn.classList.remove("opacity-50", "pointer-events-none");
+      }
+    };
+  }
+
+
+  // Fungsi umum untuk setup tombol dengan logika ON/OFF
+function setupButton(buttonId, index, stateOnClick) {
+  const btn = document.getElementById(buttonId);
+  if (!btn) return;
+
+  btn.onclick = async () => {
+    btn.classList.add("opacity-50", "pointer-events-none");
+
+    try {
+      // Kirim perintah saat tombol ditekan
+      await fetch("/api/button", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ index: index, state: stateOnClick }),
+      });
+
+      // Pulihkan tombol setelah jeda (opsional)
+      setTimeout(() => {
+        btn.classList.remove("opacity-50", "pointer-events-none");
+      }, 600);
+    } catch (err) {
+      alert("Gagal kirim perintah.");
+      btn.classList.remove("opacity-50", "pointer-events-none");
+    }
+  };
+}
+
+
+  // Inisialisasi
+  window.onload = () => {
+// Tombol SOUNDING → kirim OFF (false)
+setupButton("btn-sounding-1", 0, false);
+setupButton("btn-sounding-2", 1, false);
+setupButton("btn-sounding-3", 2, false);
+setupButton("btn-sounding-4", 3, false);
+setupButton("btn-sounding-5", 4, false);
+setupButton("btn-sounding-6", 5, false);
+
+// Tombol MUTE → kirim ON (true)
+setupButton("btn-mute-1", 0, true);
+setupButton("btn-mute-2", 1, true);
+setupButton("btn-mute-3", 2, true);
+setupButton("btn-mute-4", 3, true);
+setupButton("btn-mute-5", 4, true);
+setupButton("btn-mute-6", 5, true);
+
+    // Tombol RESET
+    setupButtonReset("btn-reset-1", 6);
+
+    // // Update pertama
+    updateIndicators();
+    updateAlarmIndicators();
+
+    // Update berkala
+    setInterval(() => {
+      updateIndicators();
+      updateAlarmIndicators();
+    }, 250);
+  };
+
+      // === PUSH NOTIFICATION & SERVICE WORKER ===
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then(async (registration) => {
+            console.log("✅ Service Worker terdaftar:", registration.scope);
+
+            // ✅ Daftar untuk push notification
+            const subscription = await registration.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: "BIEymX_zdwr0NYmItCv1uR_nBMPTPvMNW9Okw7fe1we19c-lyKMuXOaia-LB0rxaQhDUIdWmr_rekQpXJqg_1rE",
+            });
+
+            await fetch("/subscribe", {
+              method: "POST",
+              body: JSON.stringify(subscription),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+
+            console.log("🔔 Berhasil subscribe push notification");
+          })
+          .catch((err) => {
+            console.error("❌ Gagal daftar Service Worker:", err);
+          });
+
+        navigator.serviceWorker.addEventListener("message", (event) => {
+          if (event.data?.type === "new-notification") {
+            const zone = event.data.zone || "?";
+            if (typeof addNotification === "function") {
+              addNotification(zone);
+              document.getElementById("notification-popup")?.classList.remove("hidden");
+            }
+          }
+        });
+      }
+    </script>
+    <script src="js/greeting.js"></script>
+    <script src="js/notification.js"></script>
+     <script src="js/logout.js"></script>
+     <script src="js/auth.js"></script>
+  </body>
+</html>

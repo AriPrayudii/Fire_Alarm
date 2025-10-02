@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - Fire Alarm Monitoring</title>
+
+    <!-- Tailwind & Font -->
+    <link rel="stylesheet" href="assets/tailwind.css" />
+    <link rel="stylesheet" href="assets/fontawesome/css/all.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap"
+    />
+  </head>
+
+  <body
+    class="min-h-screen flex items-center justify-center bg-[#EEEEEE] font-[Poppins]"
+  >
+    <div class="bg-white p-8 rounded-2xl shadow-lg max-w-sm w-full text-center">
+      <!-- Logo dan Nama Kampus -->
+      <div class="mb-6 flex flex-col items-center">
+        <img
+          src="assets/widyadharmalogo.png"
+          alt="Logo Universitas"
+          class="w-24 h-24 mb-2"
+        />
+        <h1 class="text-xl font-bold text-[#65195E]">
+          UNIVERSITAS WIDYA DHARMA
+        </h1>
+        <p class="text-sm italic text-gray-600">FIRE ALARM MONITORING SYSTEM</p>
+      </div>
+
+      <!-- Form Login -->
+      <form id="login-form" class="space-y-4">
+        <div class="text-left">
+          <label for="username" class="block text-sm font-medium text-gray-700"
+            >Username</label
+          >
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+            required
+          />
+        </div>
+
+        <!-- Password + Toggle Mata -->
+        <div class="text-left relative">
+          <label for="password" class="block text-sm font-medium text-gray-700"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+            required
+          />
+          <span
+            class="absolute right-3 top-9 transform -translate-y-1/2 cursor-pointer text-gray-500"
+          >
+            <i id="toggle-icon" class="fas fa-eye"></i>
+          </span>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-purple-700 hover:bg-purple-800 text-white py-2 rounded-lg font-bold transition"
+        >
+          LOGIN
+        </button>
+      </form>
+
+      <!-- Pesan Error -->
+      <p id="login-error" class="text-red-500 text-sm mt-4 hidden">
+        Username atau Password salah.
+      </p>
+    </div>
+
+    <!-- Script -->
+    <script src="js/login.js"></script>
+    <script src="js/toggle-password.js"></script>
+  </body>
+</html>
